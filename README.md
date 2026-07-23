@@ -13,10 +13,15 @@ A Delhi, India jewellery storefront with a customer account area and a local adm
 
 Open `index.html` in a browser, or serve the directory with any static file server.
 
-## Admin demo access
+## Firebase authentication
 
-- Email: `admin@sparklysoul.in`
-- Password: `Sparkly2026`
+The shared `auth.html` page supports Google and email/password sign-in through Firebase Authentication.
+
+1. In Firebase Authentication, enable **Google** and **Email/Password** providers.
+2. Add the Vercel domain (for example, `sparkly-soul.vercel.app`) to Firebase Authentication's authorized domains.
+3. Set the `ADMIN_EMAILS` Vercel environment variable to a comma-separated list of real Firebase admin account emails. Alternatively, assign the Firebase custom claim `admin: true` to an admin user.
+
+The previous demo admin password is no longer used after this authentication update.
 
 ## Deploy to Vercel
 
