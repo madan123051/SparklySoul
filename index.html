@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SparklySoul — delicate jewellery, made to be noticed. Based in Delhi, India." />
+  <title>SparklySoul | Jewellery, Delhi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#30281f; --cocoa:#4d3824; --gold:#b68a3d; --cream:#fbf8f3; --sand:#efe7dc; --rose:#d9a69b; --white:#fffdf9; --line:rgba(77,56,36,.14); --shadow:0 18px 50px rgba(73,51,28,.12); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--cream); color:var(--ink); font-family:"DM Sans",sans-serif; }
+    button, input { font:inherit; }
+    button { cursor:pointer; }
+    a { color:inherit; text-decoration:none; }
+    .announcement { background:var(--cocoa); color:#fff9ef; text-align:center; font-size:12px; letter-spacing:.08em; padding:10px 16px; }
+    .announcement span { color:#f3c86b; }
+    .site-header { position:sticky; top:0; z-index:30; background:rgba(251,248,243,.94); backdrop-filter:blur(15px); border-bottom:1px solid var(--line); }
+    .nav { max-width:1240px; margin:auto; min-height:78px; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; min-width:170px; gap:7px; }
+    .brand-logo { width:54px; height:54px; object-fit:contain; mix-blend-mode:multiply; }
+    .brand-text { font-family:"Playfair Display",serif; color:var(--cocoa); font-size:24px; letter-spacing:-.055em; line-height:1; }
+    .brand-text small { display:block; margin-top:4px; font-family:"DM Sans",sans-serif; font-size:7px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); }
+    .nav-links { display:flex; align-items:center; gap:26px; font-size:13px; font-weight:600; }
+    .nav-links a { position:relative; }
+    .nav-links a:after { content:""; position:absolute; bottom:-7px; left:0; width:0; height:1px; background:var(--gold); transition:.25s; }
+    .nav-links a:hover:after { width:100%; }
+    .nav-actions { display:flex; align-items:center; gap:8px; }
+    .icon-button { width:39px; height:39px; display:grid; place-items:center; padding:0; border:1px solid transparent; border-radius:50%; color:var(--cocoa); background:transparent; transition:.2s; position:relative; }
+    .icon-button:hover { border-color:var(--line); background:var(--white); }
+    .cart-count { position:absolute; top:1px; right:1px; width:16px; height:16px; border-radius:50%; display:grid; place-items:center; background:var(--cocoa); color:white; font-size:9px; font-weight:700; }
+    .mobile-menu { display:none; }
+    .hero { min-height:630px; position:relative; overflow:hidden; isolation:isolate; display:flex; align-items:center; }
+    .hero:before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg, rgba(37,25,12,.78) 0%,rgba(37,25,12,.43) 43%,rgba(37,25,12,.05) 72%), url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1900&q=88') center 42%/cover; }
+    .hero:after { content:""; position:absolute; width:510px; height:510px; right:-180px; bottom:-320px; z-index:-1; border-radius:50%; background:rgba(236,190,102,.38); filter:blur(1px); }
+    .hero-content { max-width:1240px; width:100%; margin:0 auto; padding:84px 28px; color:white; }
+    .eyebrow { display:flex; align-items:center; gap:9px; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+    .eyebrow:before { content:""; display:block; height:1px; width:30px; background:currentColor; }
+    .hero h1 { max-width:650px; margin:18px 0; font-family:"Playfair Display",serif; font-size:clamp(49px,6.2vw,86px); line-height:.98; letter-spacing:-.055em; font-weight:500; }
+    .hero h1 em { color:#efd192; font-weight:500; }
+    .hero p { max-width:390px; margin:0 0 30px; font-size:16px; line-height:1.6; color:rgba(255,255,255,.9); }
+    .button { display:inline-flex; align-items:center; gap:9px; padding:14px 23px; border:1px solid var(--cocoa); background:var(--cocoa); color:white; font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; transition:.25s; }
+    .button:hover { transform:translateY(-2px); background:#271b11; box-shadow:0 8px 20px rgba(0,0,0,.18); }
+    .button.light { background:#fffdf8; color:var(--cocoa); border-color:#fffdf8; }
+    .button.light:hover { background:#f1d79f; border-color:#f1d79f; }
+    .hero-note { margin-top:33px; display:flex; align-items:center; gap:11px; font-size:11px; letter-spacing:.07em; color:rgba(255,255,255,.83); }
+    .hero-note svg { color:#f3c86b; }
+    .section { max-width:1240px; margin:0 auto; padding:94px 28px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:34px; }
+    .section-tag { color:var(--gold); font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+    h2 { margin:7px 0 0; font-family:"Playfair Display",serif; font-size:clamp(33px,4vw,49px); font-weight:500; letter-spacing:-.045em; line-height:1.05; }
+    .text-link { padding-bottom:4px; border-bottom:1px solid var(--gold); color:var(--cocoa); font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; }
+    .text-link:hover { color:var(--gold); }
+    .categories { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .category { min-height:365px; position:relative; overflow:hidden; background:#e8e0d4; color:white; display:flex; align-items:end; padding:24px; }
+    .category:before { content:""; position:absolute; inset:0; background:var(--image) center/cover; transition:transform .55s; }
+    .category:after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 30%,rgba(23,16,8,.7)); }
+    .category:hover:before { transform:scale(1.07); }
+    .category span { z-index:1; position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; font-family:"Playfair Display",serif; font-size:27px; }
+    .round-arrow { width:34px; height:34px; border:1px solid rgba(255,255,255,.65); border-radius:50%; display:grid; place-items:center; font-family:"DM Sans"; font-size:17px; }
+    .featured { background:var(--sand); }
+    .products { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .product { min-width:0; position:relative; }
+    .product-image { aspect-ratio: .82; overflow:hidden; position:relative; background:#e9e3dc; }
+    .product-image img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
+    .product:hover .product-image img { transform:scale(1.055); }
+    .badge { position:absolute; top:12px; left:12px; z-index:2; background:var(--white); color:var(--cocoa); font-size:9px; letter-spacing:.13em; font-weight:700; text-transform:uppercase; padding:7px 9px; }
+    .wish { position:absolute; top:9px; right:9px; z-index:2; width:35px; height:35px; border:0; border-radius:50%; background:rgba(255,253,249,.9); color:var(--cocoa); display:grid; place-items:center; font-size:18px; }
+    .wish.active { color:#af5f57; }
+    .product-info { padding:14px 3px 4px; }
+    .product-type { display:block; color:#8d7966; font-size:10px; text-transform:uppercase; letter-spacing:.11em; font-weight:700; margin-bottom:6px; }
+    .product-row { display:flex; justify-content:space-between; gap:9px; align-items:start; }
+    .product h3 { margin:0; font-size:14px; line-height:1.35; font-weight:600; }
+    .price { color:var(--cocoa); font-family:"Playfair Display",serif; font-size:17px; white-space:nowrap; }
+    .product .quick-add { position:absolute; left:12px; right:12px; bottom:12px; opacity:0; transform:translateY(8px); transition:.25s; }
+    .product:hover .quick-add { opacity:1; transform:none; }
+    .quick-add { width:calc(100% - 24px); display:flex; align-items:center; justify-content:center; gap:7px; padding:12px; border:0; background:var(--cocoa); color:white; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .promise { display:grid; grid-template-columns:1.15fr 1fr; gap:70px; align-items:center; }
+    .promise-image { min-height:510px; overflow:hidden; position:relative; }
+    .promise-image img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .promise-image .image-note { position:absolute; bottom:20px; right:20px; background:var(--white); padding:16px 19px; color:var(--cocoa); font-family:"Playfair Display",serif; font-size:17px; }
+    .promise-copy p { max-width:430px; line-height:1.75; color:#716252; margin:20px 0 26px; }
+    .checks { margin:0 0 29px; padding:0; list-style:none; display:grid; gap:15px; }
+    .checks li { display:flex; gap:11px; align-items:center; font-size:14px; font-weight:600; }
+    .check { width:22px; height:22px; background:#eadcc8; border-radius:50%; display:grid; place-items:center; color:var(--cocoa); font-size:13px; }
+    .review-band { background:var(--cocoa); color:white; padding:78px 28px; text-align:center; }
+    .review-band .quote { max-width:810px; margin:15px auto 23px; font-family:"Playfair Display",serif; font-size:clamp(29px,4vw,48px); line-height:1.17; letter-spacing:-.045em; }
+    .reviewer { font-size:11px; color:#f0cc87; letter-spacing:.15em; font-weight:700; text-transform:uppercase; }
+    .instagram { display:grid; grid-template-columns:1fr 1.05fr .9fr 1.1fr 1fr; gap:10px; }
+    .insta-tile { aspect-ratio:1; overflow:hidden; position:relative; }
+    .insta-tile img { width:100%; height:100%; object-fit:cover; transition:.3s; }
+    .insta-tile:hover img { transform:scale(1.07); }
+    .insta-tile:hover:after { content:"♡  @sparklysoul.in"; position:absolute; inset:0; display:grid; place-items:center; background:rgba(54,39,22,.55); color:white; font-size:12px; }
+    .newsletter { margin:0 28px 0; padding:54px max(28px,calc((100vw - 1184px)/2)); background:#d3b68e; color:var(--cocoa); display:flex; justify-content:space-between; align-items:center; gap:35px; }
+    .newsletter h2 { font-size:36px; }
+    .newsletter p { margin:10px 0 0; max-width:450px; font-size:14px; line-height:1.5; }
+    .email-form { display:flex; width:min(100%,420px); border-bottom:1px solid var(--cocoa); }
+    .email-form input { flex:1; min-width:0; padding:12px 0; background:transparent; border:0; outline:0; color:var(--cocoa); }
+    .email-form input::placeholder { color:rgba(77,56,36,.73); }
+    .email-form button { background:transparent; border:0; font-size:11px; color:var(--cocoa); font-weight:700; letter-spacing:.1em; }
+    footer { max-width:1240px; margin:auto; padding:69px 28px 27px; }
+    .footer-main { display:grid; grid-template-columns:1.7fr repeat(3,1fr); gap:45px; padding-bottom:55px; }
+    .footer-logo { width:116px; height:95px; object-fit:contain; mix-blend-mode:multiply; margin:-14px 0 -12px -27px; }
+    .footer-blurb { max-width:250px; line-height:1.7; font-size:13px; color:#796a5b; }
+    .footer-heading { display:block; margin:7px 0 15px; color:var(--cocoa); font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    .footer-column a, .footer-column p { display:block; margin:0 0 10px; color:#796a5b; font-size:13px; }
+    .footer-column a:hover { color:var(--gold); }
+    .footer-bottom { padding-top:21px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; font-size:11px; color:#897a6b; }
+    .footer-bottom span:last-child { color:var(--cocoa); }
+    .drawer-backdrop { position:fixed; inset:0; z-index:60; background:rgba(31,22,12,.38); opacity:0; visibility:hidden; transition:.25s; }
+    .drawer { position:fixed; z-index:61; top:0; right:0; height:100dvh; width:min(430px,100%); padding:24px; background:var(--white); box-shadow:-15px 0 40px rgba(28,20,10,.16); transform:translateX(100%); transition:.3s ease; display:flex; flex-direction:column; }
+    .drawer-backdrop.open { opacity:1; visibility:visible; }
+    .drawer.open { transform:none; }
+    .drawer-head { display:flex; align-items:center; justify-content:space-between; padding-bottom:19px; border-bottom:1px solid var(--line); }
+    .drawer-title { margin:0; font-family:"Playfair Display",serif; font-size:27px; font-weight:500; }
+    .close { background:transparent; border:0; color:var(--cocoa); font-size:26px; line-height:1; }
+    .cart-items { flex:1; overflow:auto; padding:17px 0; }
+    .empty-cart { color:#857565; text-align:center; margin-top:70px; line-height:1.7; }
+    .cart-item { display:grid; grid-template-columns:75px 1fr auto; gap:13px; padding:12px 0; border-bottom:1px solid var(--line); }
+    .cart-item img { width:75px; height:88px; object-fit:cover; }
+    .cart-item h4 { margin:2px 0 7px; font-size:13px; }
+    .cart-item span { color:#806f5f; font-size:12px; }
+    .cart-item button { align-self:start; border:0; background:transparent; color:#aa796e; font-size:18px; }
+    .cart-total { border-top:1px solid var(--line); padding-top:18px; }
+    .total-row { display:flex; justify-content:space-between; font-size:14px; font-weight:700; margin-bottom:16px; }
+    .cart-total .button { width:100%; justify-content:center; }
+    .drawer-search { width:100%; margin-top:20px; padding:13px 0; outline:0; border:0; border-bottom:1px solid var(--cocoa); background:transparent; }
+    .search-results { overflow:auto; padding:18px 0; }
+    .search-result { display:flex; gap:13px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+    .search-result img { width:60px; height:70px; object-fit:cover; }
+    .search-result h4 { margin:2px 0 5px; font-size:13px; }
+    .search-result span { color:var(--cocoa); font-family:"Playfair Display",serif; }
+    .toast { position:fixed; z-index:80; bottom:24px; left:50%; transform:translate(-50%,20px); opacity:0; pointer-events:none; padding:13px 18px; background:var(--cocoa); color:#fffdf7; font-size:13px; box-shadow:var(--shadow); transition:.25s; }
+    .toast.show { transform:translate(-50%,0); opacity:1; }
+    @media (max-width:850px) { .nav{padding:0 18px;min-height:68px}.nav-links{display:none}.mobile-menu{display:grid}.brand{min-width:auto}.brand-text{font-size:21px}.hero{min-height:570px}.hero-content{padding:70px 22px}.categories,.products{grid-template-columns:repeat(2,1fr)}.category{min-height:300px}.promise{grid-template-columns:1fr;gap:38px}.promise-image{min-height:390px}.newsletter{margin:0;padding:43px 28px;display:block}.email-form{margin-top:28px}.footer-main{grid-template-columns:1.5fr 1fr 1fr;gap:30px}.footer-column:last-child{grid-column:2}.instagram{grid-template-columns:repeat(5,1fr)} }
+    @media (max-width:530px) { .announcement{font-size:10px}.brand-logo{width:44px;height:44px}.nav-actions .icon-button:first-child{display:none}.hero:before{background:linear-gradient(90deg,rgba(37,25,12,.78),rgba(37,25,12,.28)),url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1000&q=85') 60%/cover}.hero h1{font-size:49px}.section{padding:64px 18px}.section-head{margin-bottom:24px}.section-head .text-link{font-size:10px}.categories{gap:10px}.category{min-height:210px;padding:14px}.category span{font-size:21px}.round-arrow{width:28px;height:28px}.products{gap:12px}.product-info{padding-top:10px}.product h3{font-size:12px}.price{font-size:15px}.badge{top:7px;left:7px;font-size:8px;padding:5px}.wish{top:5px;right:5px;width:30px;height:30px}.quick-add{display:none}.promise-image{min-height:340px}.promise-copy h2{font-size:38px}.review-band{padding:60px 20px}.instagram{gap:4px}.newsletter{margin:0;padding:38px 22px}.newsletter h2{font-size:32px}.footer-main{grid-template-columns:1fr 1fr;gap:28px 18px;padding-bottom:40px}.footer-main>div:first-child{grid-column:span 2}.footer-column:last-child{grid-column:auto}.footer-bottom{display:block;line-height:2}.footer-bottom span:last-child{display:block}.drawer{padding:19px} }
+  </style>
+</head>
+<body>
+  <div class="announcement">FREE SHIPPING IN INDIA ON ORDERS ABOVE ₹1,499 <span>✦</span> DELHI'S LITTLE SPARKLE DESTINATION</div>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home" class="brand" aria-label="SparklySoul home">
+        <img class="brand-logo" src="sparklysoul-logo.jpg" alt="SparklySoul original logo" />
+        <span class="brand-text">SparklySoul<small>Delhi · India</small></span>
+      </a>
+      <div class="nav-links">
+        <a href="#new">New arrivals</a><a href="#collections">Shop collections</a><a href="#about">Our story</a><a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-button" onclick="openSearch()" aria-label="Search products"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/></svg></button>
+        <a class="icon-button" href="account.html" aria-label="My profile"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c.7-3.5 3-5.3 6.5-5.3s5.8 1.8 6.5 5.3"/></svg></a>
+        <button class="icon-button" onclick="openCart()" aria-label="Open shopping bag"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span class="cart-count" id="cartCount">0</span></button>
+        <button class="icon-button mobile-menu" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">Handpicked for your glow</div>
+        <h1>Jewellery for <em>every</em><br>little celebration.</h1>
+        <p>Thoughtful pieces with a hint of magic — from Delhi, made for your everyday shine.</p>
+        <a class="button light" href="#new">Shop the edit <span>→</span></a>
+        <div class="hero-note"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/><path d="M12 7v4l2.8 1.7"/></svg> Delicate design. Everyday delight.</div>
+      </div>
+    </section>
+    <section class="section" id="collections">
+      <div class="section-head"><div><span class="section-tag">Find your favourite</span><h2>Made to match your mood</h2></div><a class="text-link" href="#new">View all pieces →</a></div>
+      <div class="categories">
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85')"><span>Earrings <i class="round-arrow">↗</i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=85')"><span>Rings <i class="round-arrow">↗</i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85')"><span>Necklaces <i class="round-arrow">↗</i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=700&q=85')"><span>Bracelets <i class="round-arrow">↗</i></span></a>
+      </div>
+    </section>
+    <section class="featured" id="new">
+      <div class="section">
+        <div class="section-head"><div><span class="section-tag">New & loved</span><h2>The sparkle edit</h2></div><a class="text-link" href="#collections">Shop collections →</a></div>
+        <div class="products" id="productGrid"></div>
+      </div>
+    </section>
+    <section class="section" id="about">
+      <div class="promise">
+        <div class="promise-image"><img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1000&q=87" alt="Gold jewellery arranged elegantly" /><div class="image-note">A little sparkle, always ✦</div></div>
+        <div class="promise-copy"><span class="section-tag">The SparklySoul promise</span><h2>Small details,<br>big feelings.</h2><p>We believe jewellery should feel personal, effortless and a little bit special. Our edit is curated for those moments when you want to show up as your brightest self.</p><ul class="checks"><li><span class="check">✓</span> Skin-friendly, quality materials</li><li><span class="check">✓</span> Gift-ready packaging with every order</li><li><span class="check">✓</span> Carefully packed from Delhi</li></ul><a class="button" href="#contact">Meet SparklySoul <span>→</span></a></div>
+      </div>
+    </section>
+    <section class="review-band"><span class="section-tag" style="color:#efcb89">Worn & adored</span><div class="quote">“The cutest everyday pieces — light, lovely and exactly the little confidence boost I wanted.”</div><div class="reviewer">— Ananya, New Delhi</div></section>
+    <section class="section"><div class="section-head"><div><span class="section-tag">Follow our shine</span><h2>From our little world</h2></div><a class="text-link" href="#contact">@sparklysoul.in →</a></div><div class="instagram"><a class="insta-tile" href="#contact"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=500&q=80" alt="Jewellery detail"></a><a class="insta-tile" href="#contact"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=500&q=80" alt="Earrings"></a><a class="insta-tile" href="#contact"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=500&q=80" alt="Ring detail"></a><a class="insta-tile" href="#contact"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="Gold rings"></a><a class="insta-tile" href="#contact"><img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=500&q=80" alt="Necklace"></a></div></section>
+    <section class="newsletter"><div><span class="section-tag">A note from us</span><h2>Stay in the sparkle loop.</h2><p>New drops, styling notes and a little extra glow — straight to your inbox.</p></div><form class="email-form" onsubmit="subscribe(event)"><input type="email" required aria-label="Email address" placeholder="Your email address" /><button type="submit">JOIN →</button></form></section>
+  </main>
+  <footer id="contact"><div class="footer-main"><div><img class="footer-logo" src="sparklysoul-logo.jpg" alt="SparklySoul logo" /><p class="footer-blurb">A Delhi-based jewellery edit for everyday magic and memorable moments.</p></div><div class="footer-column"><span class="footer-heading">Shop</span><a href="#new">New arrivals</a><a href="#collections">Earrings</a><a href="#collections">Rings</a><a href="#collections">Necklaces</a></div><div class="footer-column"><span class="footer-heading">Help</span><a href="account.html">My account & orders</a><a href="account.html#orders">Track my order</a><a href="#contact">Care guide</a><a href="#contact">FAQs</a></div><div class="footer-column"><span class="footer-heading">Say hello</span><p>Delhi, India</p><a href="mailto:hello@sparklysoul.in">hello@sparklysoul.in</a><a href="#contact">Instagram ↗</a><a href="admin.html">Store admin ↗</a></div></div><div class="footer-bottom"><span>© 2026 SparklySoul. Made with a little magic.</span><span>Delhi · India ✦</span></div></footer>
+  <div class="drawer-backdrop" id="backdrop" onclick="closeDrawers()"></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Shopping bag"><div class="drawer-head"><h3 class="drawer-title">Your bag <span id="bagItems"></span></h3><button class="close" onclick="closeDrawers()" aria-label="Close">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><div class="total-row"><span>Subtotal</span><span id="cartTotal">₹0</span></div><button class="button" onclick="checkout()">Proceed to checkout →</button></div></aside>
+  <aside class="drawer" id="searchDrawer" aria-label="Search"><div class="drawer-head"><h3 class="drawer-title">Find your sparkle</h3><button class="close" onclick="closeDrawers()" aria-label="Close">×</button></div><input id="searchInput" class="drawer-search" placeholder="Search earrings, rings..." oninput="searchProducts(this.value)" /><div class="search-results" id="searchResults"></div></aside>
+  <div class="toast" id="toast"></div>
+  <script>
+    const seedProducts = [
+      {id:1,name:'Celeste Pearl Drops',type:'Earrings',price:899,badge:'Bestseller',image:'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85'},
+      {id:2,name:'Golden Hour Hoops',type:'Earrings',price:749,badge:'New',image:'https://images.unsplash.com/photo-1635767798638-3665e7d02541?auto=format&fit=crop&w=700&q=85'},
+      {id:3,name:'Luna Stackable Ring',type:'Rings',price:699,badge:'',image:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=85'},
+      {id:4,name:'Saanjh Layered Chain',type:'Necklaces',price:1299,badge:'Limited',image:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85'},
+      {id:5,name:'Dewdrop Charm Bracelet',type:'Bracelets',price:799,badge:'',image:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=700&q=85'},
+      {id:6,name:'Meher Stone Studs',type:'Earrings',price:599,badge:'',image:'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85'},
+      {id:7,name:'Noor Pendant',type:'Necklaces',price:1099,badge:'New',image:'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=700&q=85'},
+      {id:8,name:'Aaina Open Ring',type:'Rings',price:649,badge:'',image:'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=700&q=85'}
+    ];
+    const storedProducts = JSON.parse(localStorage.getItem('sparklySoulProducts') || 'null');
+    const products = storedProducts && storedProducts.length ? storedProducts : seedProducts;
+    if (!storedProducts) localStorage.setItem('sparklySoulProducts', JSON.stringify(seedProducts));
+    let cart = JSON.parse(localStorage.getItem('sparklySoulCart') || '[]');
+    const money = n => '₹' + n.toLocaleString('en-IN');
+    const productGrid = document.getElementById('productGrid');
+    function renderProducts() { productGrid.innerHTML = products.slice(0,4).map(p => `<article class="product"><div class="product-image">${p.badge?`<span class="badge">${p.badge}</span>`:''}<button class="wish" aria-label="Save ${p.name}" onclick="this.classList.toggle('active');this.textContent=this.classList.contains('active')?'♥':'♡'">♡</button><img src="${p.image}" alt="${p.name}" loading="lazy"><button class="quick-add" onclick="addToCart(${p.id})">Add to bag&nbsp; +</button></div><div class="product-info"><span class="product-type">${p.type}</span><div class="product-row"><h3>${p.name}</h3><span class="price">${money(p.price)}</span></div></div></article>`).join(''); }
+    function persistCart() { localStorage.setItem('sparklySoulCart', JSON.stringify(cart)); }
+    function addToCart(id) { const p=products.find(item=>item.id===id); const existing=cart.find(item=>item.id===id); existing?existing.qty++:cart.push({...p,qty:1}); persistCart(); renderCart(); showToast(`${p.name} added to your bag`); }
+    function renderCart() { const count=cart.reduce((sum,i)=>sum+i.qty,0), total=cart.reduce((sum,i)=>sum+i.price*i.qty,0); document.getElementById('cartCount').textContent=count; document.getElementById('bagItems').textContent=count?`(${count})`:''; document.getElementById('cartTotal').textContent=money(total); document.getElementById('cartItems').innerHTML=cart.length?cart.map(i=>`<div class="cart-item"><img src="${i.image}" alt="${i.name}"><div><h4>${i.name}</h4><span>${i.type} · Qty ${i.qty}</span><br><span class="price">${money(i.price*i.qty)}</span></div><button aria-label="Remove ${i.name}" onclick="removeFromCart(${i.id})">×</button></div>`).join(''):'<div class="empty-cart">Your bag is waiting for a little sparkle.<br><br><button class="button" onclick="closeDrawers();document.querySelector(\'#new\').scrollIntoView()">Shop the edit →</button></div>'; }
+    function removeFromCart(id) { cart=cart.filter(i=>i.id!==id); persistCart(); renderCart(); }
+    function openCart() { closeDrawers(); document.getElementById('backdrop').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
+    function openSearch() { closeDrawers(); document.getElementById('backdrop').classList.add('open'); document.getElementById('searchDrawer').classList.add('open'); setTimeout(()=>document.getElementById('searchInput').focus(),310); searchProducts(''); }
+    function closeDrawers() { document.getElementById('backdrop').classList.remove('open'); document.querySelectorAll('.drawer').forEach(d=>d.classList.remove('open')); }
+    function searchProducts(q) { const list = products.filter(p => (p.name+p.type).toLowerCase().includes(q.toLowerCase())); document.getElementById('searchResults').innerHTML=list.map(p=>`<div class="search-result" onclick="addToCart(${p.id});closeDrawers()"><img src="${p.image}" alt=""><div><h4>${p.name}</h4><span>${p.type} · ${money(p.price)}</span></div></div>`).join('') || '<p class="empty-cart">No jewellery found. Try another word.</p>'; }
+    function checkout() { if(!cart.length) return showToast('Your bag is still empty'); persistCart(); location.href='account.html#checkout'; }
+    function subscribe(e) { e.preventDefault(); e.target.reset(); showToast('You are on the sparkle list ✦'); }
+    function showToast(message) { const toast=document.getElementById('toast'); toast.textContent=message; toast.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2700); }
+    function toggleMenu() { const links=document.querySelector('.nav-links'); const visible=getComputedStyle(links).display!=='none'; links.style.cssText=visible?'':'display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;padding:22px;background:#fbf8f3;border-bottom:1px solid var(--line);'; }
+    renderProducts(); renderCart();
+  </script>
+</body>
+</html>
