@@ -1,0 +1,106 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.admin == true;
+    }
+
+    function ownsUserDoc(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function isValidProduct() {
+      return request.resource.data.keys().hasOnly([
+        'id',
+        'name',
+        'type',
+        'price',
+        'stock',
+        'badge',
+        'image',
+        'poster',
+        'media',
+        'mediaType',
+        'gallery',
+        'active',
+        'createdAt',
+        'updatedAt'
+      ])
+      && request.resource.data.name is string
+      && request.resource.data.type is string
+      && request.resource.data.price is number
+      && request.resource.data.price >= 0
+      && request.resource.data.stock is number
+      && request.resource.data.stock >= 0;
+    }
+
+    function isValidOrderCreate() {
+      return signedIn()
+      && request.resource.data.customer.uid == request.auth.uid
+      && request.resource.data.total is number
+      && request.resource.data.total >= 1
+      && request.resource.data.status == 'Order Confirmed'
+      && request.resource.data.paymentStatus in ['Paid', 'Pending Verification']
+      && request.resource.data.keys().hasOnly([
+        'customer',
+        'items',
+        'total',
+        'payment',
+        'paymentStatus',
+        'razorpayOrderId',
+        'razorpayPaymentId',
+        'status',
+        'placedAt',
+        'updatedAt'
+      ]);
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidProduct();
+      allow delete: if isAdmin();
+    }
+
+    match /storeSettings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /orders/{orderId} {
+      allow create: if isValidOrderCreate();
+      allow read: if isAdmin()
+        || (signedIn() && resource.data.customer.uid == request.auth.uid);
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+          'status',
+          'paymentStatus',
+          'razorpayPaymentId',
+          'updatedAt'
+        ]);
+      allow delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow create, read, update: if ownsUserDoc(userId);
+      allow read: if isAdmin();
+      allow delete: if isAdmin() || ownsUserDoc(userId);
+
+      match /cart/{cartItemId} {
+        allow read, write: if ownsUserDoc(userId);
+      }
+    }
+
+    match /admin/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
