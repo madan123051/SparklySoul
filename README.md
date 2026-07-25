@@ -32,6 +32,13 @@ The previous demo admin password is no longer used after this authentication upd
 
 The site is static, so it has no build dependency or server process.
 
-## Important for production
+## Razorpay payments
 
-The current customer accounts, cart, products and orders are a browser-local demo stored with `localStorage`. Before accepting real orders, connect a secure backend/database, real customer authentication, payment gateway (such as Razorpay), image upload storage, and courier/shipping APIs.
+Cash on delivery is disabled. Checkout creates a Razorpay order on the server, opens Standard Checkout (UPI, cards, netbanking and wallets), and verifies the Razorpay signature server-side before showing the customer order.
+
+In Vercel, set these environment variables for **Production**, **Preview** and **Development**:
+
+- `RAZORPAY_KEY_ID` — Razorpay Key ID (test keys first, then live Key ID)
+- `RAZORPAY_KEY_SECRET` — Razorpay Key Secret (never expose this in browser code)
+
+Use Razorpay test keys to validate the full flow before replacing them with live keys. Configure automatic payment capture and a `payment.captured` webhook in Razorpay before fulfilling real orders. The account/order display is still browser-local; add a database before using this as the sole record of real fulfilment.
