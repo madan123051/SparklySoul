@@ -19,13 +19,13 @@ npx firebase-tools deploy --only firestore:rules,storage --project YOUR_FIREBASE
 
 ## Admin access
 
-The rules use the secure Firebase custom claim:
+The rules allow the current admin email `sparklyseol@gmail.com` and also support the secure Firebase custom claim:
 
 ```js
 admin: true
 ```
 
-Your existing website can still check `ADMIN_EMAILS` in Vercel for page routing, but Firestore and Storage rules cannot safely read Vercel environment variables. For real rule-level admin access, set the admin custom claim on the Firebase user.
+Your existing website can still check `ADMIN_EMAILS` in Vercel for page routing, but Firestore and Storage rules cannot read Vercel environment variables. If you add more admin emails later, add them to `isAdmin()` in both rule files or set the admin custom claim on those Firebase users.
 
 Example using Firebase Admin SDK:
 
