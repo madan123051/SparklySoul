@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const razorpayResponse = await fetch('https://api.razorpay.com/v1/orders', {
     method: 'POST',
     headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount, currency: 'INR', receipt, notes: { store: 'SparklySoul' } })
+    body: JSON.stringify({ amount, currency: 'INR', receipt, notes: { store: 'sparklyseol' } })
   });
   const order = await razorpayResponse.json();
   if (!razorpayResponse.ok) {
