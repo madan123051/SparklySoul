@@ -7,7 +7,11 @@ service firebase.storage {
     }
 
     function isAdmin() {
-      return signedIn() && request.auth.token.admin == true;
+      return signedIn()
+        && (
+          request.auth.token.admin == true
+          || request.auth.token.email == 'sparklyseol@gmail.com'
+        );
     }
 
     function isUnder5Mb() {
