@@ -60,7 +60,9 @@
     .category:after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 30%,rgba(23,16,8,.7)); }
     .category:hover:before { transform:scale(1.07); }
     .category span { z-index:1; position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; font-family:"Playfair Display",serif; font-size:27px; }
-    .round-arrow { width:34px; height:34px; border:1px solid rgba(255,255,255,.65); border-radius:50%; display:grid; place-items:center; font-family:"DM Sans"; font-size:17px; }
+    .round-arrow { width:34px; height:34px; border:1px solid rgba(255,255,255,.65); border-radius:50%; display:grid; place-items:center; font-size:0; position:relative; background:rgba(255,255,255,.08); }
+    .round-arrow:before { content:""; width:10px; height:10px; border-top:2px solid currentColor; border-right:2px solid currentColor; transform:rotate(45deg); }
+    .round-arrow:after { content:""; width:13px; height:2px; background:currentColor; position:absolute; transform:translateX(-1px); }
     .featured { background:var(--sand); }
     .products { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
     .product { min-width:0; position:relative; }
@@ -145,7 +147,7 @@
   </style>
 </head>
 <body>
-  <div class="announcement">FREE SHIPPING IN INDIA ON ORDERS ABOVE ₹1,499 <span>✦</span> DELHI'S LITTLE SPARKLE DESTINATION</div>
+  <div class="announcement" id="announcementBar">DELHI'S LITTLE SPARKLE DESTINATION</div>
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a href="#home" class="brand" aria-label="sparklyseol home">
@@ -176,10 +178,10 @@
     <section class="section" id="collections">
       <div class="section-head"><div><span class="section-tag">Find your favourite</span><h2>Made to match your mood</h2></div><a class="text-link" href="#new">View all pieces →</a></div>
       <div class="categories">
-        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85')"><span>Earrings <i class="round-arrow">↗</i></span></a>
-        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=85')"><span>Rings <i class="round-arrow">↗</i></span></a>
-        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85')"><span>Necklaces <i class="round-arrow">↗</i></span></a>
-        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=700&q=85')"><span>Bracelets <i class="round-arrow">↗</i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85')"><span>Earrings <i class="round-arrow"></i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=85')"><span>Rings <i class="round-arrow"></i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85')"><span>Necklaces <i class="round-arrow"></i></span></a>
+        <a class="category" href="#new" style="--image:url('https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=700&q=85')"><span>Bracelets <i class="round-arrow"></i></span></a>
       </div>
     </section>
     <section class="featured" id="new">
@@ -227,6 +229,7 @@
     const esc=value=>String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     const productLink=id=>{const url=new URL(location.href);url.hash='';url.searchParams.set('product',id);return url.toString()};
     function productGallery(p){const list=Array.isArray(p.gallery)&&p.gallery.length?p.gallery:[{type:p.mediaType||'image',url:p.media||p.image,posterUrl:p.poster||p.image}];return list.map(item=>({type:item.type||'image',url:item.url||item.media||item.posterUrl||p.image,posterUrl:item.posterUrl||item.poster||item.url||p.image})).filter(item=>item.url||item.posterUrl)}
+    function updateAnnouncement(){const s=settings(),freeAbove=Number(s.freeDeliveryAbove||0),bar=document.getElementById('announcementBar');if(!bar)return;if(s.deliveryEnabled&&freeAbove>0){bar.innerHTML=`FREE SHIPPING IN INDIA ON ORDERS ABOVE ${money(freeAbove)} <span>✦</span> DELHI'S LITTLE SPARKLE DESTINATION`}else if(!s.deliveryEnabled){bar.innerHTML=`DELIVERY CHARGE OFF <span>✦</span> DELHI'S LITTLE SPARKLE DESTINATION`}else{bar.textContent=`DELHI'S LITTLE SPARKLE DESTINATION`}}
     function productVisual(p){return p.mediaType==='video'&&p.media?`<video muted loop playsinline autoplay preload="metadata" poster="${p.poster||p.image}" src="${p.media}" aria-label="${p.name} product video"></video>`:`<img src="${p.image}" alt="${p.name}" loading="lazy">`;}
     function renderProducts() { const s=settings();const ribbon=s.festivalEnabled&&Number(s.discountPercent)>0?`<div class="offer-ribbon">✦ ${s.festivalName||'Festival sale'} — ${s.discountPercent}% off</div>`:'';document.querySelectorAll('.offer-ribbon').forEach(e=>e.remove());productGrid.insertAdjacentHTML('beforebegin',ribbon);productGrid.innerHTML=products.slice(0,4).map(p=>{const available=Number(p.stock||0),price=salePrice(p),galleryCount=productGallery(p).length;return `<article class="product"><div class="product-image" onclick="if(!event.target.closest('button'))openProductGallery(${p.id})">${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}<button class="wish" aria-label="Save ${esc(p.name)}" onclick="event.stopPropagation();this.classList.toggle('active');this.textContent=this.classList.contains('active')?'♥':'♡'">♡</button>${productVisual(p)}<button class="quick-add" ${available<1?'disabled':''} onclick="event.stopPropagation();addToCart(${p.id})">${available>0?'Add to bag +':'Sold out'}</button></div><div class="product-info"><span class="product-type">${esc(p.type)}</span><div class="product-row"><h3>${esc(p.name)}</h3><span class="price">${s.festivalEnabled&&price<p.price?`<span class="sale-price">${money(p.price)}</span>`:''}${money(price)}</span></div><span class="stock-note ${available>0&&available<=3?'low':''}">${available<1?'Sold out':available<=3?`Only ${available} left`:`${available} in stock`}</span><div class="product-actions"><button class="mini-action" onclick="openProductGallery(${p.id})">${galleryCount>1?`${galleryCount} photos`:'View'}</button><button class="mini-action" onclick="shareProduct(${p.id},event)">Share</button></div></div></article>`}).join(''); }
     function persistCart() { localStorage.setItem('sparklySoulCart', JSON.stringify(cart)); }
@@ -247,7 +250,7 @@
     function subscribe(e) { e.preventDefault(); e.target.reset(); showToast('You are on the sparkle list ✦'); }
     function showToast(message) { const toast=document.getElementById('toast'); toast.textContent=message; toast.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2700); }
     function toggleMenu() { const links=document.querySelector('.nav-links'); const visible=getComputedStyle(links).display!=='none'; links.style.cssText=visible?'':'display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;padding:22px;background:#fbf8f3;border-bottom:1px solid var(--line);'; }
-    renderProducts(); renderCart(); const sharedId=new URLSearchParams(location.search).get('product'); if(sharedId)setTimeout(()=>openProductGallery(sharedId),80);
+    updateAnnouncement(); renderProducts(); renderCart(); const sharedId=new URLSearchParams(location.search).get('product'); if(sharedId)setTimeout(()=>openProductGallery(sharedId),80);
   </script>
 </body>
 </html>
