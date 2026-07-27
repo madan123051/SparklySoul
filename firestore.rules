@@ -60,6 +60,33 @@ service cloud.firestore {
         'razorpayPaymentId',
         'status',
         'placedAt',
+        'createdAt',
+        'updatedAt'
+      ]);
+    }
+
+    function isValidReview() {
+      return signedIn()
+      && request.resource.data.uid == request.auth.uid
+      && request.resource.data.name is string
+      && request.resource.data.name.size() >= 1
+      && request.resource.data.name.size() <= 45
+      && request.resource.data.email == request.auth.token.email
+      && request.resource.data.rating is number
+      && request.resource.data.rating >= 1
+      && request.resource.data.rating <= 5
+      && request.resource.data.message is string
+      && request.resource.data.message.size() >= 1
+      && request.resource.data.message.size() <= 140
+      && request.resource.data.active == true
+      && request.resource.data.keys().hasOnly([
+        'uid',
+        'name',
+        'email',
+        'rating',
+        'message',
+        'active',
+        'createdAt',
         'updatedAt'
       ]);
     }
@@ -73,6 +100,12 @@ service cloud.firestore {
     match /storeSettings/{settingId} {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create, update: if reviewId == request.auth.uid && isValidReview();
+      allow delete: if isAdmin() || (signedIn() && reviewId == request.auth.uid);
     }
 
     match /orders/{orderId} {
