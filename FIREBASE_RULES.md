@@ -41,7 +41,7 @@ After setting the claim, sign out and sign in again so the browser receives a fr
 - Only admin users can create, update, or delete products.
 - Only admin users can upload product images, video files, and video posters.
 - Product images/posters must be WebP and 5 MB or smaller.
-- Product videos must be MP4/WebM and 5 MB or smaller.
+- Product video uploads can be MP4/WebM up to 20 MB.
 - Buyers can create their own orders and read only their own orders.
 - Admin users can read and update order status.
 - Users can manage only their own profile/cart documents.
